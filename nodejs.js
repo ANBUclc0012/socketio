@@ -1,11 +1,11 @@
-const io = require('socket.io')();
-io.listen(3000);
-io.on('connection', (socket) => {
-    console.log('A new client has connected');
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+
+const httpServer = createServer();
+const io = new Server(httpServer, { /* options */ });
+
+io.on("connection", (socket) => {
+    console.log("a user connected");
 });
-io.on('connection', (socket) => {
-    console.log('A new client has connected');
-    socket.on('message', (data) => {
-        console.log('Received message from client:', data);
-    });
-});
+
+httpServer.listen(3000);
